@@ -77,7 +77,7 @@ const RegisterScreen = ({ location, history }) => {
         <Form.Group controlId="confirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
-            type="confirmPassword"
+            type="password"
             placeholder="Confirm Your Password "
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
