@@ -1,2 +1,2 @@
-/api/* https://florashop-ecommere-backend.onrender.com/api/ 200
+/api/* https://florashop-ecommere-backend.onrender.com/api/:splat 200
 /*  /index.html  200
