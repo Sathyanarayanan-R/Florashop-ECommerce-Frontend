@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && echo 'https://hilarious-sable-5aca76.netlify.app/api/* https://florashop-ecommere-backend.onrender.com/api/:splat 200' | cat >build/_redirects",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
