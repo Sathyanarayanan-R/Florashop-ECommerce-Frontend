@@ -8,7 +8,7 @@ import {
 } from "../constants/cartConstants";
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-    const {data} = await axios.get(`process.env.REACT_APP/api/products/${id}`)
+    const {data} = await axios.get(`https://florashop-ecommere-backend.onrender.com/api/products/${id}`)
 
     dispatch({
         type: CART_ADD_ITEM,

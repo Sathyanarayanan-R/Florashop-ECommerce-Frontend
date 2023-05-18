@@ -30,7 +30,7 @@ export const listProducts = (keyword='', pageNumber='') => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    const { data } = await axios.get(`process.env.REACT_APP/api/products?keyword=${keyword}&pageNumber=${pageNumber}`);
+    const { data } = await axios.get(`https://florashop-ecommere-backend.onrender.com/api/products?keyword=${keyword}&pageNumber=${pageNumber}`);
     
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
@@ -54,7 +54,7 @@ export const listProductsDetails = (productID) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`process.env.REACT_APP/api/products/${productID}`);
+    const { data } = await axios.get(`https://florashop-ecommere-backend.onrender.com/api/products/${productID}`);
     
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
@@ -92,7 +92,7 @@ export const deleteProduct = (productID) => async (
       },
     };
    
-    await axios.delete(`process.env.REACT_APP/api/products/${productID}`, config);
+    await axios.delete(`https://florashop-ecommere-backend.onrender.com/api/products/${productID}`, config);
 
     dispatch({
       type: PRODUCT_DELETE_SUCCESS
@@ -125,7 +125,7 @@ export const createProduct = () => async (dispatch, getState) => {
       },
     };
 
-    const {data } = await axios.post(`process.env.REACT_APP/api/products`, {} ,config);
+    const {data } = await axios.post(`https://florashop-ecommere-backend.onrender.com/api/products`, {} ,config);
 
     dispatch({
       type: PRODUCT_CREATE_SUCCESS,
@@ -159,7 +159,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put(`process.env.REACT_APP/api/products/${product._id}`, product, config);
+    const { data } = await axios.put(`https://florashop-ecommere-backend.onrender.com/api/products/${product._id}`, product, config);
 
     dispatch({
       type: PRODUCT_UPDATE_SUCCESS,
@@ -195,7 +195,7 @@ export const reviewProduct = (productId, review) => async (dispatch, getState) =
     };
 
     await axios.post(
-      `process.env.REACT_APP/api/products/${productId}/reviews`,
+      `https://florashop-ecommere-backend.onrender.com/api/products/${productId}/reviews`,
      review,
       config
     );
@@ -224,7 +224,7 @@ export const listTopRatedProducts = () => async (
     dispatch({ type: PRODUCT_CAROUSEL_REQUEST });
 
     const { data } = await axios.get(
-      `process.env.REACT_APP/api/products/carousel`
+      `https://florashop-ecommere-backend.onrender.com/api/products/carousel`
     );
 
     dispatch({
