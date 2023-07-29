@@ -31,9 +31,9 @@ const OrderScreen = ({ match, history }) => {
     }
      const addPayPalScript = async() => {
         const {data: clientId} = await axios.get('/api/config/paypal');
-        const script = document.createElement('script');
+        const script = document.getElementById('paypalScript');
         script.type = 'text/javascript'
-        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
+        // script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
         script.async = true
         script.onload = () => {
           setSdkReady(true)
