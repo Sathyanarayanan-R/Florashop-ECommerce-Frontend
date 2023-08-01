@@ -31,18 +31,21 @@ const OrderScreen = ({ match, history }) => {
     if (!userInfo) {
       history.push('/login')
     }
+
+    console.log(process.env.REACT_APP_API_KEY);
+
+    const options = {
+      method: 'GET',
+      redirect: 'follow',
+      url: 'https://api.apilayer.com/fixer/convert',
+      params: { to: 'USD', from: 'INR', amount: order.totalPrice },
+      headers: {
+        'apikey': process.env.REACT_APP_API_KEY
+      }
+    };
+
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('https://florashop-ecommere-backend.onrender.com/api/config/paypal');
-      console.log(process.env.REACT_APP_API_KEY);
-      const options = {
-        method: 'GET',
-        redirect: 'follow',
-        url: 'https://api.apilayer.com/fixer/convert',
-        params: { to: 'USD', from: 'INR', amount: order.totalPrice },
-        headers: {
-          'apikey': process.env.REACT_APP_API_KEY
-        }
-      };
 
       const response = await axios.request(options);
       const result = Number(response.data.result.toFixed(2));
@@ -66,10 +69,14 @@ const OrderScreen = ({ match, history }) => {
       if (!window.paypal) {
         addPayPalScript()
       } else {
+        const response = await axios.request(options);
+        const result = Number(response.data.result.toFixed(2));
+        
+        settotalPriceUSD(result);
         setSdkReady(true)
       }
     }
-  }, [dispatch, order, orderId, successPay, successDeliver, history, userInfo, totalPriceUSD]);
+  }, [dispatch, order, orderId, successPay, successDeliver, history, userInfo]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult))
