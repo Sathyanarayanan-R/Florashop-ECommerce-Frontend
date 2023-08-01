@@ -25,37 +25,33 @@ const OrderScreen = ({ match, history }) => {
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
 
-  const [totalPriceUSD, settotalPriceUSD] = useState(0);
+  // const [totalPriceUSD, settotalPriceUSD] = useState(0);
 
-  useEffect( async () => {
+  useEffect(() => {
     if (!userInfo) {
       history.push('/login')
     }
-
-    console.log(process.env.REACT_APP_API_KEY);
-
-    const options = {
-      method: 'GET',
-      redirect: 'follow',
-      url: 'https://api.apilayer.com/fixer/convert',
-      params: { to: 'USD', from: 'INR', amount: order.totalPrice },
-      headers: {
-        'apikey': process.env.REACT_APP_API_KEY
-      }
-    };
-
-    const response = await axios.request(options);
-    const result = Number(response.data.result.toFixed(2));
-
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('https://florashop-ecommere-backend.onrender.com/api/config/paypal');
+      // console.log(process.env.REACT_APP_API_KEY);
+      // const options = {
+      //   method: 'GET',
+      //   redirect: 'follow',
+      //   url: 'https://api.apilayer.com/fixer/convert',
+      //   params: { to: 'USD', from: 'INR', amount: order.totalPrice },
+      //   headers: {
+      //     'apikey': process.env.REACT_APP_API_KEY
+      //   }
+      // };
+
+      // const response = await axios.request(options);
+      // const result = Number(response.data.result.toFixed(2));
 
       const script = document.createElement('script');
       script.type = 'text/javascript'
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
       script.async = true
       script.onload = () => {
-        settotalPriceUSD(result);
         setSdkReady(true)
       }
       document.body.appendChild(script)
@@ -69,7 +65,6 @@ const OrderScreen = ({ match, history }) => {
       if (!window.paypal) {
         addPayPalScript()
       } else {
-        settotalPriceUSD(result);
         setSdkReady(true)
       }
     }
@@ -82,6 +77,23 @@ const OrderScreen = ({ match, history }) => {
   const deliverHandler = () => {
     dispatch(deliverOrder(order))
 
+  }
+
+  const totalPriceUSDConverter = async () => {
+    const options = {
+      method: 'GET',
+      redirect: 'follow',
+      url: 'https://api.apilayer.com/fixer/convert',
+      params: { to: 'USD', from: 'INR', amount: order.totalPrice },
+      headers: {
+        'apikey': process.env.REACT_APP_API_KEY
+      }
+    };
+
+    const response = await axios.request(options);
+    const result = Number(response.data.result.toFixed(2));
+
+    return result;
   }
 
   return loading ? (
@@ -198,7 +210,7 @@ const OrderScreen = ({ match, history }) => {
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
                   {!sdkReady ? <Loader /> : (
-                    <PayPalButton amount={totalPriceUSD} onSuccess={successPaymentHandler} />
+                    <PayPalButton amount={totalPriceUSDConverter()} onSuccess={successPaymentHandler} />
                   )}
                 </ListGroup.Item>
               )}
