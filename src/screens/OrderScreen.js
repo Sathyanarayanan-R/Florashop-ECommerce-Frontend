@@ -34,7 +34,6 @@ const OrderScreen = ({ match, history }) => {
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('https://florashop-ecommere-backend.onrender.com/api/config/paypal');
       console.log(process.env.REACT_APP_API_KEY);
-      console.log(REACT_APP_API_KEY);
       const options = {
         method: 'GET',
         redirect: 'follow',
