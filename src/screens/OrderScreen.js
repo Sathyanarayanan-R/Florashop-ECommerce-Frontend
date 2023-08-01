@@ -44,11 +44,11 @@ const OrderScreen = ({ match, history }) => {
       }
     };
 
+    const response = await axios.request(options);
+    const result = Number(response.data.result.toFixed(2));
+
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('https://florashop-ecommere-backend.onrender.com/api/config/paypal');
-
-      const response = await axios.request(options);
-      const result = Number(response.data.result.toFixed(2));
 
       const script = document.createElement('script');
       script.type = 'text/javascript'
@@ -69,12 +69,6 @@ const OrderScreen = ({ match, history }) => {
       if (!window.paypal) {
         addPayPalScript()
       } else {
-        let result;
-        (async () => {
-          const response = await axios.request(options);
-          result = Number(response.data.result.toFixed(2));
-        })();
-
         settotalPriceUSD(result);
         setSdkReady(true)
       }
