@@ -69,9 +69,10 @@ const OrderScreen = ({ match, history }) => {
       if (!window.paypal) {
         addPayPalScript()
       } else {
+        let result;
         (async () => {
           const response = await axios.request(options);
-          const result = Number(response.data.result.toFixed(2));
+          result = Number(response.data.result.toFixed(2));
         })();
 
         settotalPriceUSD(result);
