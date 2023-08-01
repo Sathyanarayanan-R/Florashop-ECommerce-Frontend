@@ -46,13 +46,13 @@ const OrderScreen = ({ match, history }) => {
 
       const response = await axios.request(options);
       const result = Number(response.data.result.toFixed(2));
-      settotalPriceUSD(result);
 
       const script = document.createElement('script');
       script.type = 'text/javascript'
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
       script.async = true
       script.onload = () => {
+        settotalPriceUSD(result);
         setSdkReady(true)
       }
       document.body.appendChild(script)
