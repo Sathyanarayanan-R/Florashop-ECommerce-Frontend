@@ -27,7 +27,7 @@ const OrderScreen = ({ match, history }) => {
 
   const [totalPriceUSD, settotalPriceUSD] = useState(0);
 
-  useEffect(() => {
+  useEffect( async () => {
     if (!userInfo) {
       history.push('/login')
     }
