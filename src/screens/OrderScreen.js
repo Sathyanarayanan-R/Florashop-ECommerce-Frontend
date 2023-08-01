@@ -210,7 +210,8 @@ const OrderScreen = ({ match, history }) => {
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
                   {!sdkReady ? <Loader /> : (
-                    <PayPalButton onClick={totalPriceUSDConverter()} amount={totalPriceUSD} onSuccess={successPaymentHandler} />
+                    totalPriceUSDConverter(),
+                    <PayPalButton amount={totalPriceUSD} onSuccess={successPaymentHandler} />
                   )}
                 </ListGroup.Item>
               )}
