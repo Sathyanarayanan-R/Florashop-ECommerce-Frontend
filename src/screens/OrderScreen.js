@@ -33,20 +33,6 @@ const OrderScreen = ({ match, history }) => {
     }
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('https://florashop-ecommere-backend.onrender.com/api/config/paypal');
-      // console.log(process.env.REACT_APP_API_KEY);
-      // const options = {
-      //   method: 'GET',
-      //   redirect: 'follow',
-      //   url: 'https://api.apilayer.com/fixer/convert',
-      //   params: { to: 'USD', from: 'INR', amount: order.totalPrice },
-      //   headers: {
-      //     'apikey': process.env.REACT_APP_API_KEY
-      //   }
-      // };
-
-      // const response = await axios.request(options);
-      // const result = Number(response.data.result.toFixed(2));
-
       const script = document.createElement('script');
       script.type = 'text/javascript'
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
