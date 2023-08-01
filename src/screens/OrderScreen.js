@@ -25,7 +25,7 @@ const OrderScreen = ({ match, history }) => {
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
 
-  // const [totalPriceUSD, settotalPriceUSD] = useState(0);
+  const [totalPriceUSD, settotalPriceUSD] = useState(0);
 
   useEffect(() => {
     if (!userInfo) {
@@ -93,7 +93,7 @@ const OrderScreen = ({ match, history }) => {
     const response = await axios.request(options);
     const result = Number(response.data.result.toFixed(2));
 
-    return result;
+    settotalPriceUSD(result);
   }
 
   return loading ? (
@@ -210,7 +210,7 @@ const OrderScreen = ({ match, history }) => {
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
                   {!sdkReady ? <Loader /> : (
-                    <PayPalButton amount={totalPriceUSDConverter()} onSuccess={successPaymentHandler} />
+                    <PayPalButton onClick={totalPriceUSDConverter()} amount={totalPriceUSD} onSuccess={successPaymentHandler} />
                   )}
                 </ListGroup.Item>
               )}
